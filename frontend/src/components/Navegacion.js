@@ -32,7 +32,7 @@ const Navegacion = () => {
                         {isAuthenticated ? (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">
+                                    <Link className="nav-link" to="/components/ListaProductos.js">
                                         Lista de productos
                                     </Link>
                                 </li>

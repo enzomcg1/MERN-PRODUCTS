@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CrearUsuario = () => {
+const CrearProducto = () => {
   const valorInicial = {
     nombre: '',
     descripcion: '',
     precio: 0
   };
 
-  const [usuarioSchema, setUsuario] = useState(valorInicial);
+  const [producto, setProducto] = useState(valorInicial);
 
   const capturarDatos = (e) => {
     const { name, value } = e.target;
-    setUsuario({
-      ...usuarioSchema,
-      [name]: value
+    setProducto({
+      ...producto,
+      [name]: name === 'precio' ? parseFloat(value) : value
     });
   };
 
   const guardarDatos = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/api/productos', usuarioSchema);
-      setUsuario(valorInicial);
+      await axios.post('http://localhost:4000/api/producto', producto);
+      setProducto(valorInicial);
       alert('Producto guardado con éxito');
     } catch (error) {
       console.error('Error guardando el producto:', error);
@@ -42,7 +42,7 @@ const CrearUsuario = () => {
               name="nombre"
               className="form-control"
               placeholder="Ingresar el nombre del producto"
-              value={usuarioSchema.nombre}
+              value={producto.nombre}
               onChange={capturarDatos}
               required
             />
@@ -55,7 +55,7 @@ const CrearUsuario = () => {
               name="descripcion"
               className="form-control"
               placeholder="Ingresar la descripción del producto"
-              value={usuarioSchema.descripcion}
+              value={producto.descripcion}
               onChange={capturarDatos}
               required
             />
@@ -68,9 +68,10 @@ const CrearUsuario = () => {
               name="precio"
               className="form-control"
               placeholder="Ingresar precio del producto"
-              value={usuarioSchema.precio}
+              value={producto.precio}
               onChange={capturarDatos}
               required
+              min="0" // Puedes agregar un valor mínimo si es necesario
             />
           </div>
 
@@ -83,4 +84,4 @@ const CrearUsuario = () => {
   );
 };
 
-export default CrearUsuario;
+export default CrearProducto;

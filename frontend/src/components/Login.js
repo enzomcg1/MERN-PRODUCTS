@@ -12,17 +12,18 @@ const Login = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:4000/api/producto/auth/login', usuario);
-            localStorage.setItem('token', response.data.token);
-            alert('Inicio de sesión exitoso');
-            navigate('/');
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            alert('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
-        }
-    };
+    e.preventDefault();
+    try {
+        const response = await axios.post('http://localhost:4000/api/auth/login', usuario);
+        localStorage.setItem('token', response.data.token);
+        alert('Inicio de sesión exitoso');
+        navigate('/');
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error.response ? error.response.data : error.message);
+        alert(`Error al iniciar sesión: ${error.response ? error.response.data.message : error.message}`);
+    }
+};
+
 
     return (
         <div className="col-md-6 offset-md-3">
