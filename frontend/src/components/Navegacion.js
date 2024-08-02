@@ -32,13 +32,18 @@ const Navegacion = () => {
                         {isAuthenticated ? (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/components/ListaProductos.js">
+                                    <Link className="nav-link" to="/">
                                         Lista de productos
                                     </Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/CrearProducto">
                                         Crear productos
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/perfil">
+                                        Perfil
                                     </Link>
                                 </li>
                                 <li className="nav-item">

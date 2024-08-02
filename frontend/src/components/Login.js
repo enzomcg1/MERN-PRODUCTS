@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [usuario, setUsuario] = useState({ email: '', password: '' });
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -12,18 +13,21 @@ const Login = () => {
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post('http://localhost:4000/api/auth/login', usuario);
-        localStorage.setItem('token', response.data.token);
-        alert('Inicio de sesión exitoso');
-        navigate('/');
-    } catch (error) {
-        console.error('Error al iniciar sesión:', error.response ? error.response.data : error.message);
-        alert(`Error al iniciar sesión: ${error.response ? error.response.data.message : error.message}`);
-    }
-};
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:4000/api/auth/login', usuario);
+            localStorage.setItem('token', response.data.token);
+            alert('Inicio de sesión exitoso');
+            navigate('components/ListaProductos.js'); // Redirige a la página de ListaProductos
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error.response ? error.response.data : error.message);
+            alert(`Error al iniciar sesión: ${error.response ? error.response.data.message : error.message}`);
+        }
+    };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <div className="col-md-6 offset-md-3">
@@ -44,15 +48,24 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label>Contraseña</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            name="password"
-                            placeholder="Ingrese su contraseña"
-                            value={usuario.password}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="input-group">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control"
+                                name="password"
+                                placeholder="Ingrese su contraseña"
+                                value={usuario.password}
+                                onChange={handleChange}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? "Ocultar" : "Mostrar"}
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" className="btn btn-primary form-control mt-4">Iniciar Sesión</button>
                 </form>

@@ -5,6 +5,7 @@ import ListaProductos from './components/ListaProductos';
 import Registro from './components/Registro';
 import Login from './components/Login';
 import CrearProductos from './components/CrearProductos';
+import Perfil from './components/Perfil'; // Importa el componente de perfil
 
 const App = () => {
     const isAuthenticated = !!localStorage.getItem('token');
@@ -18,6 +19,7 @@ const App = () => {
                         <>
                             <Route path="/" element={<ListaProductos />} />
                             <Route path="/CrearProducto" element={<CrearProductos />} />
+                            <Route path="/perfil" element={<Perfil />} /> {/* Nueva ruta de perfil */}
                             <Route path="*" element={<Navigate to="/" />} />
                         </>
                     ) : (
